@@ -1,4 +1,4 @@
-# FlightSearch - Interview Demo Project
+# FlightSearch 
 
 A production-grade flight search platform demonstrating React, TypeScript, and Next.js expertise.
 
