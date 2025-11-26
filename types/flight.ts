@@ -1,7 +1,8 @@
 export interface Flight {
   id: string;
   provider: "GDS" | "NDC" | "AGGREGATOR";
-  airline: string;
+  airline: string;           // Full airline name: "Singapore Airlines"
+  airlineCode: string;       // IATA code: "SQ"
   flightNumber: string;
   origin: Airport;
   destination: Airport;

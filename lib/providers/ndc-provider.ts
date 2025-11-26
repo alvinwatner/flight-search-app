@@ -1,5 +1,5 @@
 import { SearchParams, NDCResponse } from '@/types/flight';
-import { simulateNetworkDelay, shouldSimulateError, generateFlightNumber } from '../mock-data';
+import { simulateNetworkDelay, shouldSimulateError } from '../mock-data';
 
 /**
  * NDC (New Distribution Capability) Provider
@@ -30,6 +30,7 @@ export class NDCProvider {
   private generateMockOffers(params: SearchParams) {
     const count = Math.floor(Math.random() * 4) + 2; // 2-5 offers
     const offers = [];
+    const airlines = ['SQ', 'EK', 'QR', 'CX', 'NH', 'JL']; // NDC airlines
 
     for (let i = 0; i < count; i++) {
       const departureTime = new Date(params.departureDate);
@@ -38,10 +39,13 @@ export class NDCProvider {
       const duration = 200 + Math.random() * 250;
       const arrivalTime = new Date(departureTime.getTime() + duration * 60000);
 
+      const airline = airlines[Math.floor(Math.random() * airlines.length)];
+      const flightNum = Math.floor(Math.random() * 900) + 100;
+
       offers.push({
         offerId: `NDC${Math.random().toString(36).substr(2, 11).toUpperCase()}`,
-        airline: { iata: generateFlightNumber().substring(0, 2) },
-        flight: { number: generateFlightNumber() },
+        airline: { iata: airline },
+        flight: { number: `${airline}${flightNum}` },
         origin: { iata: params.origin },
         destination: { iata: params.destination },
         departureTime: departureTime.toISOString(),

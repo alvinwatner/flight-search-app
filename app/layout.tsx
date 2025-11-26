@@ -21,11 +21,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ErrorBoundary  >
-          <nav className="bg-blue-600 text-white p-4">
+          <nav className="bg-cyan-500 text-white p-4">
             <div className="max-w-7xl mx-auto flex justify-between items-center">
               <h1 className="text-2xl font-bold">FlightSearch</h1>
               <div className="space-x-4">
-                <Link href="/" className="hover:underline">
+                <Link href="/" className="hover:text-cyan-100 transition-colors">
                   Search
                 </Link>
               </div>

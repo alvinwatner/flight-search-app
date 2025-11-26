@@ -17,5 +17,13 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --color-primary: #3b82f6;
+
+  /* Teal/Cyan Color Scheme - Fresh & Travel-oriented */
+  --color-primary: #06B6D4;      /* Cyan-500 - primary actions, nav */
+  --color-primary-dark: #0891B2; /* Cyan-600 - hover states */
+  --color-success: #10B981;      /* Emerald-500 - "Nonstop" badges */
+  --color-accent: #14B8A6;       /* Teal-500 - highlights */
+  --color-price: #0891B2;        /* Cyan-600 - prices (deeper) */
+  --color-muted: #6B7280;        /* Gray-500 - secondary text */
+  --color-border: #E5E7EB;       /* Gray-200 - borders */
 }

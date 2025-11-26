@@ -17,13 +17,13 @@ export function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    "font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2";
+    "font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 shadow-sm hover:shadow-md";
 
   const variants = {
-    primary: "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500",
+    primary: "bg-cyan-500 text-white hover:bg-cyan-600 focus:ring-cyan-500",
     secondary: "bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500",
     outline:
-      "border-2 border-blue-600 text-blue-600 hover:bg-blue-50 focus:ring-blue-500",
+      "border-2 border-cyan-500 text-cyan-600 hover:bg-cyan-50 focus:ring-cyan-500",
     ghost: "text-gray-700 hover:bg-gray-100 focus:ring-gray-500",
   };
 

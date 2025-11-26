@@ -3,7 +3,6 @@ import {
   simulateNetworkDelay,
   shouldSimulateError,
   MOCK_AIRPORTS,
-  generateFlightNumber,
 } from "../mock-data";
 
 export class GDSProvider {
@@ -26,6 +25,7 @@ export class GDSProvider {
   private generateMockFlights(params: SearchParams) {
     const count = Math.floor(Math.random() * 5) + 3; // 3-7 flights
     const flights = [];
+    const airlines = ['AA', 'BA', 'LH', 'AF', 'KL']; // GDS airlines
 
     for (let i = 0; i < count; i++) {
       const departureTime = new Date(params.departureDate);
@@ -35,10 +35,13 @@ export class GDSProvider {
 
       const arrivalTime = new Date(departureTime.getTime() + duration * 60000);
 
+      const carrier = airlines[Math.floor(Math.random() * airlines.length)];
+      const flightNum = Math.floor(Math.random() * 9000) + 1000;
+
       flights.push({
         pnr: `GDS${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
-        carrier: generateFlightNumber().substring(0, 2),
-        flightNo: generateFlightNumber(),
+        carrier,
+        flightNo: `${carrier}${flightNum}`,
         dep: {
           airport: params.origin,
           time: departureTime.toISOString(),

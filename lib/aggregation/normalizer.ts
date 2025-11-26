@@ -10,11 +10,39 @@ import { MOCK_AIRPORTS } from '../mock-data';
  * Solution: Provider-specific transformation functions
  */
 
+// Airline IATA codes to full names mapping
+const AIRLINE_NAMES: Record<string, string> = {
+  'AA': 'American Airlines',
+  'DL': 'Delta Air Lines',
+  'UA': 'United Airlines',
+  'BA': 'British Airways',
+  'SQ': 'Singapore Airlines',
+  'EK': 'Emirates',
+  'QR': 'Qatar Airways',
+  'CX': 'Cathay Pacific',
+  'LH': 'Lufthansa',
+  'AI': 'Air India',
+  'QF': 'Qantas',
+  'AF': 'Air France',
+  'KL': 'KLM',
+  'NH': 'All Nippon Airways',
+  'JL': 'Japan Airlines'
+};
+
+/**
+ * Get full airline name from IATA code
+ * Falls back to code if name not found
+ */
+function getAirlineName(code: string): string {
+  return AIRLINE_NAMES[code] || code;
+}
+
 export function normalizeGDSFlights(response: GDSResponse): Flight[] {
   return response.flights.map(flight => ({
     id: flight.pnr,
     provider: 'GDS' as const,
-    airline: flight.carrier,
+    airline: getAirlineName(flight.carrier),
+    airlineCode: flight.carrier,
     flightNumber: flight.flightNo,
     origin: MOCK_AIRPORTS[flight.dep.airport] || {
       code: flight.dep.airport,
@@ -51,7 +79,8 @@ export function normalizeNDCFlights(response: NDCResponse): Flight[] {
   return response.offers.map(offer => ({
     id: offer.offerId,
     provider: 'NDC' as const,
-    airline: offer.airline.iata,
+    airline: getAirlineName(offer.airline.iata),
+    airlineCode: offer.airline.iata,
     flightNumber: offer.flight.number,
     origin: MOCK_AIRPORTS[offer.origin.iata] || {
       code: offer.origin.iata,
@@ -88,7 +117,8 @@ export function normalizeAggregatorFlights(response: AggregatorResponse): Flight
   return response.results.map(result => ({
     id: result.id,
     provider: 'AGGREGATOR' as const,
-    airline: result.airlineCode,
+    airline: getAirlineName(result.airlineCode),
+    airlineCode: result.airlineCode,
     flightNumber: result.flightNum,
     origin: MOCK_AIRPORTS[result.from] || {
       code: result.from,

@@ -1,5 +1,5 @@
 import { SearchParams, AggregatorResponse } from '@/types/flight';
-import { simulateNetworkDelay, shouldSimulateError, generateFlightNumber } from '../mock-data';
+import { simulateNetworkDelay, shouldSimulateError } from '../mock-data';
 
 /**
  * Flight Aggregator Provider
@@ -30,6 +30,7 @@ export class AggregatorProvider {
   private generateMockResults(params: SearchParams) {
     const count = Math.floor(Math.random() * 8) + 5; // 5-12 results
     const results = [];
+    const airlines = ['AA', 'DL', 'UA', 'QF', 'AI']; // Aggregator airlines
 
     for (let i = 0; i < count; i++) {
       const departureTime = new Date(params.departureDate);
@@ -38,10 +39,13 @@ export class AggregatorProvider {
       const duration = 190 + Math.random() * 280;
       const arrivalTime = new Date(departureTime.getTime() + duration * 60000);
 
+      const airlineCode = airlines[Math.floor(Math.random() * airlines.length)];
+      const flightNum = Math.floor(Math.random() * 9000) + 1000;
+
       results.push({
         id: `AGG${Math.random().toString(36).substr(2, 10).toUpperCase()}`,
-        airlineCode: generateFlightNumber().substring(0, 2),
-        flightNum: generateFlightNumber(),
+        airlineCode,
+        flightNum: `${airlineCode}${flightNum}`,
         from: params.origin,
         to: params.destination,
         departs: departureTime.toISOString(),

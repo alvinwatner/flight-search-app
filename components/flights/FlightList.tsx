@@ -1,9 +1,9 @@
 // components/flights/FlightList.tsx
-'use client';
+"use client";
 
-import { useState, useEffect, useMemo } from 'react';
-import { SearchResponse } from '@/types/flight';
-import { FlightCard } from './FlightCard';
+import { useState, useEffect, useMemo } from "react";
+import { SearchResponse } from "@/types/flight";
+import { FlightCard } from "./FlightCard";
 
 interface FlightListProps {
   searchParams: {
@@ -27,7 +27,7 @@ export function FlightList({ searchParams }: FlightListProps) {
   const [data, setData] = useState<SearchResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [sortBy, setSortBy] = useState<'price' | 'duration'>('price');
+  const [sortBy, setSortBy] = useState<"price" | "duration">("price");
   const [maxPrice, setMaxPrice] = useState<number>(10000);
 
   // useEffect for data fetching with cleanup to prevent memory leaks
@@ -39,20 +39,20 @@ export function FlightList({ searchParams }: FlightListProps) {
       setError(null);
 
       try {
-        const response = await fetch('/api/flights/search', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        const response = await fetch("/api/flights/search", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             origin: searchParams.origin,
             destination: searchParams.destination,
             departureDate: searchParams.departureDate,
-            passengers: parseInt(searchParams.passengers || '1'),
-            cabinClass: searchParams.cabinClass || 'economy'
-          })
+            passengers: parseInt(searchParams.passengers || "1"),
+            cabinClass: searchParams.cabinClass || "economy",
+          }),
         });
 
         if (!response.ok) {
-          throw new Error('Search failed');
+          throw new Error("Search failed");
         }
 
         const result = await response.json();
@@ -62,7 +62,7 @@ export function FlightList({ searchParams }: FlightListProps) {
         }
       } catch (err) {
         if (!cancelled) {
-          setError(err instanceof Error ? err.message : 'An error occurred');
+          setError(err instanceof Error ? err.message : "An error occurred");
         }
       } finally {
         if (!cancelled) {
@@ -84,9 +84,9 @@ export function FlightList({ searchParams }: FlightListProps) {
     if (!data?.flights) return [];
 
     return data.flights
-      .filter(flight => flight.price.amount <= maxPrice)
+      .filter((flight) => flight.price.amount <= maxPrice)
       .sort((a, b) => {
-        if (sortBy === 'price') {
+        if (sortBy === "price") {
           return a.price.amount - b.price.amount;
         }
         return a.duration - b.duration;
@@ -95,9 +95,10 @@ export function FlightList({ searchParams }: FlightListProps) {
 
   if (loading) {
     return (
-      <div className="text-center py-12">
-        <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-        <p className="mt-4 text-gray-600">Searching flights...</p>
+      <div className="bg-white p-6 rounded-lg shadow animate-pulse">
+        <div className="h-6 bg-gray-200 rounded w-1/3 mb-4"></div>
+        <div className="h-4 bg-gray-200 rounded w-1/2 mb-2"></div>
+        <div className="h-4 bg-gray-200 rounded w-2/3"></div>
       </div>
     );
   }
@@ -114,8 +115,12 @@ export function FlightList({ searchParams }: FlightListProps) {
   if (!data || filteredAndSortedFlights.length === 0) {
     return (
       <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-yellow-800">No Flights Found</h3>
-        <p className="text-yellow-700 mt-2">Try adjusting your filters or search criteria.</p>
+        <h3 className="text-lg font-semibold text-yellow-800">
+          No Flights Found
+        </h3>
+        <p className="text-yellow-700 mt-2">
+          Try adjusting your filters or search criteria.
+        </p>
       </div>
     );
   }
@@ -128,7 +133,9 @@ export function FlightList({ searchParams }: FlightListProps) {
             <label className="text-sm text-gray-600">Sort by:</label>
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as 'price' | 'duration')}
+              onChange={(e) =>
+                setSortBy(e.target.value as "price" | "duration")
+              }
               className="ml-2 px-3 py-1 border rounded"
             >
               <option value="price">Price</option>
@@ -137,7 +144,9 @@ export function FlightList({ searchParams }: FlightListProps) {
           </div>
 
           <div>
-            <label className="text-sm text-gray-600">Max price: ${maxPrice}</label>
+            <label className="text-sm text-gray-600">
+              Max price: ${maxPrice}
+            </label>
             <input
               type="range"
               min="0"
@@ -157,7 +166,7 @@ export function FlightList({ searchParams }: FlightListProps) {
       </div>
 
       <div className="space-y-4">
-        {filteredAndSortedFlights.map(flight => (
+        {filteredAndSortedFlights.map((flight) => (
           <FlightCard key={flight.id} flight={flight} />
         ))}
       </div>

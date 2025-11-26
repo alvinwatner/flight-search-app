@@ -12,8 +12,8 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
     return (
       <div
         ref={ref}
-        className={`bg-white rounded-lg border border-gray-200 shadow-sm ${
-          hoverable ? "hover:shadow-md transition-shadow cursor-pointer" : ""
+        className={`bg-white rounded-lg border border-gray-100 shadow-sm ${
+          hoverable ? "hover:shadow-lg transition-shadow duration-200 cursor-pointer" : ""
         } ${className}`}
         onClick={onClick}
       >
