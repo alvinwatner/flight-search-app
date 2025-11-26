@@ -30,11 +30,12 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             Please provide origin and destination.
           </p>
           <Link
-            className="text-cyan-600 hover:underline mt-4 inline-block"
             href="/"
+            className="text-cyan-600 hover:underline mt-4 inline-block"
           >
+            {" "}
             Return to search
-          </Link>          
+          </Link>
         </div>
       </div>
     );
