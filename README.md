@@ -1,12 +1,11 @@
 # FlightSearch 
 
-A production-grade flight search platform demonstrating React, TypeScript, and Next.js expertise.
+Simulating a production-grade flight search platform with Next.js and Type Script.
 
 ## Tech Stack
 
 - **Next.js 14** (App Router)
 - **TypeScript**
-- **React 18**
 - **Tailwind CSS**
 
 ## Key Technical Demonstrations
