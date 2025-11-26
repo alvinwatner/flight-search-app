@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FlightSearch - Interview Demo Project
 
-## Getting Started
+A production-grade flight search platform demonstrating React, TypeScript, and Next.js expertise.
 
-First, run the development server:
+## Tech Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Next.js 14** (App Router)
+- **TypeScript**
+- **React 18**
+- **Tailwind CSS**
+
+## Key Technical Demonstrations
+
+### System Design Patterns
+| Pattern | Location | Purpose |
+|---------|----------|---------|
+| In-memory Cache (TTL) | `lib/cache/` | Reduce API calls, 5-min expiry |
+| Token Bucket Rate Limiting | `lib/rate-limiter/` | Protect providers from overload |
+| Request Deduplication | `lib/deduplication/` | Prevent duplicate in-flight requests |
+| Exponential Backoff Retry | `lib/retry/` | Handle transient failures gracefully |
+
+### API Architecture
+- **Multi-provider Aggregation**: GDS, NDC, Aggregator APIs called in parallel
+- **Data Normalization**: Different provider schemas → unified `Flight` interface
+- **Eventual Consistency**: `Promise.allSettled` returns available results even if some fail
+
+### Next.js Patterns
+| Pattern | Location |
+|---------|----------|
+| Server Components | `app/search/page.tsx` |
+| Client Components | `components/flights/FlightList.tsx` |
+| Route Handlers | `app/api/flights/search/route.ts` |
+| Suspense Boundaries | `app/search/page.tsx` |
+| Error Boundaries | `components/ErrorBoundary.tsx` |
+| Middleware | `middleware.ts` (logging, custom headers) |
+
+### React Patterns
+| Hook | Usage | Location |
+|------|-------|----------|
+| `useCallback` | Memoized event handlers | `SearchForm.tsx` |
+| `useMemo` | Expensive filtering/sorting | `FlightList.tsx` |
+| `useRef` | Intersection Observer for analytics | `FlightCard.tsx` |
+| `useEffect` | Data fetching with cleanup | `FlightList.tsx` |
+| Context API | Global search state | `SearchContext.tsx` |
+
+### TypeScript
+- Type-safe interfaces (`types/flight.ts`)
+- Zod runtime validation for API requests
+- `forwardRef` typing for UI components
+
+### Mock Stripe Integration
+- Checkout flow: `app/booking/checkout/page.tsx`
+- Confirmation: `app/booking/confirm/page.tsx`
+
+## Project Structure
+
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+flight-search-app/
+├── app/
+│   ├── api/flights/search/    # Route Handler
+│   ├── booking/               # Checkout flow
+│   ├── search/                # Search results (Server Component)
+│   └── page.tsx               # Home page
+├── components/
+│   ├── flights/               # FlightList, FlightCard
+│   ├── search/                # SearchForm, SearchContext
+│   └── ui/                    # Button, Card, Input, Badge
+├── lib/
+│   ├── aggregation/           # Normalizer, Aggregator
+│   ├── cache/                 # In-memory cache
+│   ├── rate-limiter/          # Token bucket
+│   ├── deduplication/         # Request dedup
+│   ├── retry/                 # Exponential backoff
+│   └── providers/             # GDS, NDC, Aggregator mocks
+├── types/                     # TypeScript interfaces
+└── middleware.ts              # Request logging
+```
