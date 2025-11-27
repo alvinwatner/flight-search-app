@@ -1,4 +1,3 @@
-// components/ErrorBoundary.tsx
 'use client';
 
 import React, { Component, ReactNode } from 'react';
@@ -14,16 +13,6 @@ interface State {
   error: Error | null;
 }
 
-/**
- * Error Boundary Component
- *
- * Purpose: Catch JavaScript errors in component tree
- * Why needed: Prevents entire app crash from component errors
- *
- * Interview talking point: "Error boundaries catch render errors.
- * For async errors (fetch), I use try/catch. For unhandled promises,
- * I'd add a global error handler in production."
- */
 export class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);

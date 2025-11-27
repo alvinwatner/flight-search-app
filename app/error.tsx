@@ -4,12 +4,6 @@
 import { useEffect } from 'react';
 import { Button } from '@/components/ui/Button';
 
-/**
- * Next.js Error Boundary
- *
- * Automatically wraps route segments
- * Catches errors during rendering, in event handlers, and in Server Components
- */
 export default function Error({
   error,
   reset,

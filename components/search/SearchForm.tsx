@@ -1,4 +1,3 @@
-// components/search/SearchForm.tsx
 'use client';
 
 import { useState, useCallback } from 'react';
@@ -6,14 +5,6 @@ import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 
-/**
- * SearchForm - Client Component
- *
- * Why Client Component?
- * - Form interactivity (onChange, onSubmit)
- * - useState for form data
- * - Router navigation
- */
 export function SearchForm() {
   const router = useRouter();
   const [formData, setFormData] = useState({

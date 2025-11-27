@@ -1,4 +1,3 @@
-// components/search/SearchContext.tsx
 'use client';
 
 import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
@@ -13,17 +12,6 @@ interface SearchContextType {
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined);
 
-/**
- * Search Context Provider
- *
- * Why Context API?
- * - Share search state across components without prop drilling
- * - Centralize search logic
- * - Easy to extend (add filters, sort, etc.)
- *
- * Interview talking point: "Context is perfect for global UI state.
- * For server state (API data), I'd use React Query or SWR in production"
- */
 export function SearchProvider({ children }: { children: ReactNode }) {
   const [searchParams, setSearchParamsState] = useState<SearchParams | null>(null);
   const [isSearching, setIsSearching] = useState(false);

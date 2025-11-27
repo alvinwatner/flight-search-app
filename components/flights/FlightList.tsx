@@ -1,4 +1,3 @@
-// components/flights/FlightList.tsx
 "use client";
 
 import { useState, useEffect, useMemo } from "react";

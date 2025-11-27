@@ -1,10 +1,9 @@
-// components/flights/FlightCard.tsx
 'use client';
 
 import { useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Flight } from '@/types/flight';
-import { Card, CardContent } from '@/components/ui/Card';
+import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { formatDuration, formatTime } from '@/lib/utils';
@@ -13,14 +12,6 @@ interface FlightCardProps {
   flight: Flight;
 }
 
-/**
- * FlightCard - Client Component
- *
- * Demonstrates:
- * - useRef for DOM references
- * - useEffect for side effects (Intersection Observer for analytics)
- * - Router navigation
- */
 export function FlightCard({ flight }: FlightCardProps) {
   const router = useRouter();
   const cardRef = useRef<HTMLDivElement>(null);

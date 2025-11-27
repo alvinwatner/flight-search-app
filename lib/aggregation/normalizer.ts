@@ -1,4 +1,3 @@
-// lib/aggregation/normalizer.ts
 import { Flight, GDSResponse, NDCResponse, AggregatorResponse } from '@/types/flight';
 import { MOCK_AIRPORTS } from '../mock-data';
 

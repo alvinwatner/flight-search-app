@@ -1,4 +1,3 @@
-// app/booking/confirm/page.tsx
 'use client';
 
 import { Suspense } from 'react';

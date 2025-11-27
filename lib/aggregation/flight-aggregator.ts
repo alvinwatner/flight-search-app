@@ -1,4 +1,3 @@
-// lib/aggregation/flight-aggregator.ts
 import { SearchParams, Flight, SearchResponse } from '@/types/flight';
 import { GDSProvider } from '../providers/gds-provider';
 import { NDCProvider } from '../providers/ndc-provider';

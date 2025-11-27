@@ -1,4 +1,3 @@
-// app/booking/checkout/page.tsx
 'use client';
 
 import { useState, Suspense } from 'react';
